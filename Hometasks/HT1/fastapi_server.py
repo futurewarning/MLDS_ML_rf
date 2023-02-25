@@ -32,6 +32,7 @@ async def upload_file(request: Request,
     data = process_pipeline.transform(data)
     if 'selling_price' in data.columns:
         data.drop('selling_price', axis=1, inplace=True)
+    data.columns = data.columns.astype(str)
     result = model.predict(data)
     print(model.get_params())
 
@@ -40,4 +41,3 @@ async def upload_file(request: Request,
         return_result[i] = result[i]
 
     return return_result
-
